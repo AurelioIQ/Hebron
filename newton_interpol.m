@@ -1,6 +1,6 @@
 format long
-x =[430,463,494,500,530,550,600,650,700,750,];
-y = [0.00000324,0.0000838,0.0012,0.00194,0.018,0.0696,1.38,17.4,153,1010];
+x =input('Type the vector x');
+y = input('Type the vector y');
 
     n=length(x);
     b=zeros(n);
@@ -25,16 +25,17 @@ y = [0.00000324,0.0000838,0.0012,0.00194,0.018,0.0696,1.38,17.4,153,1010];
             if xx(i)>=0
                 signo2='+';
             end
-            xt=strcat(xt,'*(T',signo2,num2str(xx(i)),')');
+            xt=strcat(xt,'*(t',signo2,num2str(xx(i)),')');
         end
         p=strcat(p,signo,num2str(b(1,j)),xt);   
     end
     P=str2sym(p);
-    syms T
+    syms t
     P=expand(P);
     newton_inpol=inline(P)
+h=abs(x(1)-x(n))/n;
 poli=sym2poly(P);
-x1 = 400:50:800;
+x1 = x(1):h:x(n);
 y1 = polyval(poli,x1);
 figure
 plot(x,y,'o')
